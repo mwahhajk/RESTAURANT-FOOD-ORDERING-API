@@ -97,10 +97,43 @@ export const updatePasswordController=async(req,res)=>{
     }
 }
 
-export const changePasswordController=async(req,res)=>{
-    console.log("Change Pass Controller");
+export const resetPasswordController = async (req, res) => {
+  try {
+    console.log("Rset Password");
     
-}
+    const { email, newPassword, answer } = req.body;
+    if (!email || !newPassword || !answer) {
+      return res.status(500).send({
+        success: false,
+        message: "Please Privide All Fields",
+      });
+    }
+    const user = await User.findOne({ email, answer });
+    if (!user) {
+      return res.status(500).send({
+        success: false,
+        message: "User Not Found or invlaid answer",
+      });
+    }
+    //hashing password
+    var salt = bcrypt.genSaltSync(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).send({
+      success: true,
+      message: "Password Reset SUccessfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "eror in PASSWORD RESET API",
+      error,
+    });
+  }
+};
+
 
 export const deleteProfileController=async(req,res)=>{
     console.log("Delete Profile Controller");
