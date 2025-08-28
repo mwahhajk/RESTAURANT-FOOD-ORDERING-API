@@ -60,7 +60,7 @@ export const loginUser=async(req,res)=>{
             message:"Wrong Credentials"
         })
     }
-    const token=await jwt.sign({id:findUser._id},"pkfkdfddf",{expiresIn:"7d"})
+    const token=jwt.sign({ id: findUser._id }, "pkfkdfddf", { expiresIn: "7d" })
     findUser.password=undefined;
     return res.status(200).json({
         success:true,

@@ -4,7 +4,7 @@ import { changePasswordController, deleteProfileController, getUserController, u
 
 const router=express.Router();
 
-router.get("/getUser",getUserController)
+router.get("/getUser",authMiddleware,getUserController)
 router.post("/updateUser",authMiddleware,updateUserController)
 router.post("/updatePassword",authMiddleware,updatePasswordController)
 router.post("/changePassword",authMiddleware,changePasswordController)

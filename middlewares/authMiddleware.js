@@ -1,7 +1,23 @@
 import jwt from "jsonwebtoken";
 
 export const authMiddleware=async(req,res,next)=>{
-    const token=req.headers["authorization"].split(" ")[1];
+    const authHeader = req.headers["authorization"];
+
+  if (!authHeader) {
+    return res.status(401).json({
+      success: false,
+      message: "Authorization header missing",
+    });
+  }
+
+  const token = authHeader.split(" ")[1]; 
+
+    if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: "Token missing",
+    });
+  }
     jwt.verify(token,"pkfkdfddf",(err,decode)=>{
         if(err)
         {
@@ -11,7 +27,12 @@ export const authMiddleware=async(req,res,next)=>{
             })
         }
         else{
-            req.body.id=decode.id;
+            console.log("decode");
+            console.log(decode.id);
+            
+            
+            // req.body.id=decode.id;
+            req.user = { id: decode.id };
             next()
         }
     })
