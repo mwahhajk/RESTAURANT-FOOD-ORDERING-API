@@ -8,6 +8,6 @@ router.get("/getUser",authMiddleware,getUserController)
 router.post("/updateUser",authMiddleware,updateUserController)
 router.post("/updatePassword",authMiddleware,updatePasswordController)
 router.post("/changePassword",authMiddleware,changePasswordController)
-router.get("/deleteProfile",deleteProfileController)
+router.get("/deleteProfile",authMiddleware,deleteProfileController)
 
 export default router;
