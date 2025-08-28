@@ -18,7 +18,7 @@ app.use(cors());
 app.use("/api/v1/auth",authRoute)
 
 // User Route
-app.use("/ap1/v1/user",userRoute)
+app.use("/api/v1/user",userRoute)
 
 
 connectDB();
