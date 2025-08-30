@@ -58,6 +58,27 @@ export const createRestaurantController=async(req,res)=>{
 
 export const getAllRestaurantController=async(req,res)=>{
     console.log("Get ALL");
+    try {
+
+        const allRestaurnats=await Resturant.find();
+        if(!allRestaurnats)
+        {
+        return res.status(500).send({
+        success: false,
+        message: "No Restaurant Found",
+      });
+        }
+        return res.status(200).json({
+            success:true,
+            restaurants:allRestaurnats
+        })
+    } catch (error) {
+      res.status(500).send({
+      success: false,
+      message: "Error In Create Resturant api",
+      error,
+    });
+    }
     
 }
 
