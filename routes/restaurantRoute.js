@@ -5,7 +5,7 @@ const router=express.Router();
 
 router.post("/create",createRestaurantController)
 router.get("/getAll",getAllRestaurantController)
-router.get("/getById",getRestaurantByIdController)
-router.delete("/delete",deleteRestaurantController)
+router.get("/getById/:id",getRestaurantByIdController)
+router.delete("/delete/:id",deleteRestaurantController)
 
 export default router;
